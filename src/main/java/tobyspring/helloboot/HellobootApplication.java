@@ -29,6 +29,7 @@ public class HellobootApplication {
         GenericApplicationContext applicationContext = new GenericApplicationContext(); // => ApplicationContext 중 코드에 의해 쉽게 만들 수 있는 클래스
         // 서블릿처럼 오브젝트를 생성해서 넣어주는 것도 가능하지만, 일반적으로 어떤 클래스를 이용해서 빈을 생성할 건지 메타 정보를 넣어주는 식으로 구성
         applicationContext.registerBean(HelloController.class);
+        applicationContext.registerBean(SimpleHelloService.class);
         applicationContext.refresh(); // 갖고 있는 구성 정보를 이용해서 컨테이너를 초기화하는 메서드
 
         // TomcatServletWebServerFactory : 이 자체가 톰캣 서블릿 웹서버는 아니고, 톰캣 서블릿 웹서버 생성 과정, 설정 지원 클래스
