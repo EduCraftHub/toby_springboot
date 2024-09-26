@@ -14,16 +14,32 @@ import org.springframework.web.servlet.DispatcherServlet;
 @ComponentScan // @ComponentScan이 붙어 있으면 이 패키지를 시작으로 하위 패키지를 확인해서 @Component 붙은 클래스를 빈으로 등록
 public class HellobootApplication {
 
+    @Bean
+    public ServletWebServerFactory servletContainer() {
+        return new TomcatServletWebServerFactory();
+    }
+
+    @Bean
+    public DispatcherServlet dispatcherServlet() {
+        return new DispatcherServlet(); // ApplicationContext를 어떻게 전달 받아야 할까?
+    }
+
+
     public static void main(String[] args) {
+
         // GenericWebApplicationContext는 자바 코드로 만든 Configuration 정보를 읽을 수 없음
         AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
             @Override
             protected void onRefresh() {
                 super.onRefresh();
 
-                ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+                ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
+                // dispatcherServlet에 applicationContext 넘겨 주지 않아도 SpringContainer가 dispatcherServlet에 applicationContext 필요하구나 하고 주입
+                // => 이걸 이해하려면 빈의 라이프 사이클을 알아야 함
+                DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
+
                 WebServer webServer = serverFactory.getWebServer(servletContext -> {
-                    servletContext.addServlet("dispatcher", new DispatcherServlet(this) // 클래스를 잘못 불러왔었음
+                    servletContext.addServlet("dispatcher", dispatcherServlet // 클래스를 잘못 불러왔었음
                     ).addMapping("/*");
                 });
 
