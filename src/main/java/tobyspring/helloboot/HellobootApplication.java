@@ -1,5 +1,6 @@
 package tobyspring.helloboot;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -24,31 +25,8 @@ public class HellobootApplication {
         return new DispatcherServlet(); // ApplicationContext를 어떻게 전달 받아야 할까?
     }
 
-
     public static void main(String[] args) {
-
-        // GenericWebApplicationContext는 자바 코드로 만든 Configuration 정보를 읽을 수 없음
-        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
-            @Override
-            protected void onRefresh() {
-                super.onRefresh();
-
-                ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
-                // dispatcherServlet에 applicationContext 넘겨 주지 않아도 SpringContainer가 dispatcherServlet에 applicationContext 필요하구나 하고 주입
-                // => 이걸 이해하려면 빈의 라이프 사이클을 알아야 함
-                DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
-
-                WebServer webServer = serverFactory.getWebServer(servletContext -> {
-                    servletContext.addServlet("dispatcher", dispatcherServlet // 클래스를 잘못 불러왔었음
-                    ).addMapping("/*");
-                });
-
-                webServer.start();
-            }
-        };
-
-        // 자바 코드로 만든 구성 정보를 가지고 있는 클래스를 한 번 등록 해야 함 => 코드로 된 구성 정보가 있으니 여기서부터 출발하라고 알려주는 것
-        applicationContext.register(HellobootApplication.class);
-        applicationContext.refresh(); // 갖고 있는 구성 정보를 이용해서 컨테이너를 초기화하는 메서드
+        // MySpringApplication.run(HellobootApplication.class, args);
+        SpringApplication.run(HellobootApplication.class, args);
     }
 }
