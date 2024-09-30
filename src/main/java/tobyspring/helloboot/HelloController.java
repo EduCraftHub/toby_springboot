@@ -30,7 +30,8 @@ public class HelloController {
     // GetMapping 등이 붙어 있으면 웹 요청을 처리할 수 있도록 만들어진 컨트롤러라고 판단 후 그 안의 요청 정보 추출해서 매핑 테이블을 만들어둠
     @GetMapping("/hello")
     public String hello(String name) {
-    // String을 return 하면 해당 이름을 가진 뷰를 찾아서 return
-        return helloService.sayHello(Objects.requireNonNull(name));
+        if (name == null || name.trim().length() == 0) throw  new IllegalArgumentException();
+
+        return helloService.sayHello(name);
     }
 }
