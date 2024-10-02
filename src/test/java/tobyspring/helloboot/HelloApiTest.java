@@ -24,7 +24,7 @@ public class HelloApiTest {
         assertThat(res.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(res.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE)).startsWith(MediaType.TEXT_PLAIN_VALUE);
         // 타입을 res 선언할 때, String으로 지정했기 때문에 String을 비교한다고 생각하면 됨
-        assertThat(res.getBody()).isEqualTo("Hello Spring!");
+        assertThat(res.getBody()).isEqualTo("*Hello Spring*");
     }
 
     @Test
