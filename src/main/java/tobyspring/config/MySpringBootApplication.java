@@ -1,9 +1,8 @@
-package tobyspring.helloboot;
+package tobyspring.config;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import tobyspring.config.Config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,7 +18,6 @@ import java.lang.annotation.Target;
 @Configuration
 // @ComponentScan이 붙어 있으면 이 패키지를 시작으로 하위 패키지를 확인해서 @Component 붙은 클래스를 빈으로 등록
 @ComponentScan
-// @Component가 붙거나 메타 어노테이션으로 갖고 있는 클래스들을 Import 뒤에 작성하면 구성 정보에 직접 추가해줄 수 있음
-@Import(Config.class)
+@EnableAutoConfiguration
 public @interface MySpringBootApplication {
 }
