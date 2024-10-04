@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-// @Component가 붙거나 메타 어노테이션으로 갖고 있는 클래스들을 Import 뒤에 작성하면 구성 정보에 직접 추가해줄 수 있음
-@Import({DispatcherServletConfig.class, TomcatWebServerConfig.class})
+// @Import 안에 ImportSelector 인터페이스를 구현한 클래스를 넣으면 해당 클래스에 있는 메서드를 실행해서 String[] 의 값을 동적으로 Import
+@Import(MyAutoConfigImportSelector.class)
 public @interface EnableMyAutoConfiguration {
 }
