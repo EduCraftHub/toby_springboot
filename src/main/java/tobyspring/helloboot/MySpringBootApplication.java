@@ -2,6 +2,8 @@ package tobyspring.helloboot;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import tobyspring.config.Config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,8 +15,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 // TYPE은 클래스, 인터페이스, 이넘에게 부여할 수 있는 애너테이션
 @Target(ElementType.TYPE)
-@Configuration // @Bean 오브젝트(팩토리 메서드를 가진) 클래스라는 걸 인지하기 위해서 붙여주는 어노테이션
-@ComponentScan // @ComponentScan이 붙어 있으면 이 패키지를 시작으로 하위 패키지를 확인해서 @Component 붙은 클래스를 빈으로 등록
-public @interface MySpringBootAnnotation {
-
+// @Bean 오브젝트(팩토리 메서드를 가진) 클래스라는 걸 인지하기 위해서 붙여주는 어노테이션
+@Configuration
+// @ComponentScan이 붙어 있으면 이 패키지를 시작으로 하위 패키지를 확인해서 @Component 붙은 클래스를 빈으로 등록
+@ComponentScan
+// @Component가 붙거나 메타 어노테이션으로 갖고 있는 클래스들을 Import 뒤에 작성하면 구성 정보에 직접 추가해줄 수 있음
+@Import(Config.class)
+public @interface MySpringBootApplication {
 }
