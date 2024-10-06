@@ -18,6 +18,6 @@ import java.lang.annotation.Target;
 @Configuration
 // @ComponentScan이 붙어 있으면 이 패키지를 시작으로 하위 패키지를 확인해서 @Component 붙은 클래스를 빈으로 등록
 @ComponentScan
-@EnableAutoConfiguration
+@EnableMyAutoConfiguration
 public @interface MySpringBootApplication {
 }

@@ -1,6 +1,7 @@
 package tobyspring.helloboot;
 
 import org.springframework.boot.SpringApplication;
+import tobyspring.config.EnableMyAutoConfiguration;
 import tobyspring.config.MySpringBootApplication;
 
 @MySpringBootApplication

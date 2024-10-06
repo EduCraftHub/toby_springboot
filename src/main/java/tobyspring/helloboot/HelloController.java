@@ -1,13 +1,6 @@
 package tobyspring.helloboot;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
@@ -17,14 +10,9 @@ import java.util.Objects;
 public class HelloController {
 
     private final HelloService helloService;
-    // final 불가 : final은 생성자가 완료된 시점까지 초기화가 되어야 하는데 이건 생성자를 통해서 인스턴스가 만들어지고 난 뒤에 호출되는 메서드여서
-    private ApplicationContext applicationContext;
 
     public HelloController(HelloService helloService) {
         this.helloService = helloService;
-        this.applicationContext = applicationContext;
-
-        System.out.println(applicationContext);
     }
 
     // GetMapping 등이 붙어 있으면 웹 요청을 처리할 수 있도록 만들어진 컨트롤러라고 판단 후 그 안의 요청 정보 추출해서 매핑 테이블을 만들어둠
