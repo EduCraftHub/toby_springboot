@@ -18,7 +18,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        // exclude를 사용하면 상위에 있는 모듈 밑에 포함 되어 있는 라이브러리나 모듈들을 포함되지 않도록 할 수 있음
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
