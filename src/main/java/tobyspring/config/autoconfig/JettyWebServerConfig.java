@@ -1,5 +1,6 @@
 package tobyspring.config.autoconfig;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -17,6 +18,7 @@ import tobyspring.config.MyAutoConfiguration;
 public class JettyWebServerConfig {
     // Bean은 ID가 하나씩 지정됨(기본적으로 메서드 이름을 따라감)
     @Bean("jettyWebServerFactory")
+    @ConditionalOnMissingBean
     public ServletWebServerFactory servletContainer() {
         return new JettyServletWebServerFactory();
     }
