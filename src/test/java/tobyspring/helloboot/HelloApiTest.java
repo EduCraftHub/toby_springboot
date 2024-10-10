@@ -18,7 +18,7 @@ public class HelloApiTest {
         TestRestTemplate rest = new TestRestTemplate();
 
         ResponseEntity<String> res =
-                rest.getForEntity("http://localhost:8080/hello?name={name}", String.class, "Spring");
+                rest.getForEntity("http://localhost:8080/app/hello?name={name}", String.class, "Spring");
 
         // 반환 타입 유의해서 작성하기 : getStatusCode()는 enum HttpStatus
         assertThat(res.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -33,7 +33,7 @@ public class HelloApiTest {
         TestRestTemplate rest = new TestRestTemplate();
 
         ResponseEntity<String> res =
-                rest.getForEntity("http://localhost:8080/hello?name=", String.class);
+                rest.getForEntity("http://localhost:8080/app/hello?name=", String.class);
 
         assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
