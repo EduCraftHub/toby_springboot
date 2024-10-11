@@ -18,22 +18,14 @@ import tobyspring.config.MyAutoConfiguration;
 @ConditionalMyOnClass("org.apache.catalina.startup.Tomcat")
 public class TomcatWebServerConfig {
 
-    // 프로퍼티에서 치환자로 읽어오는 건 기본 기능이 아니라서 확장 필요 => PropertySourcesPlaceholderConfigurer Bean 등록 필요
-    @Value("${contextPath:}")
-    String  contextPath;
-
-    // port 설정 값이 없다면 디폴트로 8080을 사용하게 설정
-    @Value("{port:8080}")
-    int port;
-
     @Bean("tomcatWebServerFactory")
     // DefferedImportSelector를 사용해서 자동 구성 정보를 구현하면 유저 구성 정보를 먼저 로딩하고, 그 다음에 자동 구성 정보를 하나씩 로딩 하기 때문
     // ConditionalOnMissingBean : 유저 구성 정보에 ServletWebServerFactory Bean이 있다면 그걸 사용하고, 없다면 자동 구성 정보인 이 클래스의 Bean을 사용
     @ConditionalOnMissingBean
-    public ServletWebServerFactory servletContainer() {
+    public ServletWebServerFactory servletWebServerFactory(ServerProperties properties) {
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
-        factory.setContextPath(this.contextPath);
-        factory.setPort(port);
+        factory.setContextPath(properties.getContextPath());
+        factory.setPort(properties.getPort());
         return factory;
     }
 }
