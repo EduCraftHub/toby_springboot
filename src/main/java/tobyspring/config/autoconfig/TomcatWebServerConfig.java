@@ -19,8 +19,12 @@ import tobyspring.config.MyAutoConfiguration;
 public class TomcatWebServerConfig {
 
     // 프로퍼티에서 치환자로 읽어오는 건 기본 기능이 아니라서 확장 필요 => PropertySourcesPlaceholderConfigurer Bean 등록 필요
-    @Value("${contextPath}")
+    @Value("${contextPath:}")
     String  contextPath;
+
+    // port 설정 값이 없다면 디폴트로 8080을 사용하게 설정
+    @Value("{port:8080}")
+    int port;
 
     @Bean("tomcatWebServerFactory")
     // DefferedImportSelector를 사용해서 자동 구성 정보를 구현하면 유저 구성 정보를 먼저 로딩하고, 그 다음에 자동 구성 정보를 하나씩 로딩 하기 때문
@@ -29,6 +33,7 @@ public class TomcatWebServerConfig {
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
         factory.setContextPath(this.contextPath);
+        factory.setPort(port);
         return factory;
     }
 }
