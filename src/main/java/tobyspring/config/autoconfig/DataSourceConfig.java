@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.support.JdbcTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tobyspring.config.ConditionalMyOnClass;
 import tobyspring.config.EnableMyConfigurationProperties;
 import tobyspring.config.MyAutoConfiguration;
@@ -19,6 +20,7 @@ import java.sql.Driver;
 @ConditionalMyOnClass("org.springframework.jdbc.core.JdbcOperations")
 // 위의 Conditional 조건이 충족되어 사용이 될 때만 이 프로퍼티 파일이 빈으로 등록 되도록 지정
 @EnableMyConfigurationProperties(MyDataSourceProperties.class)
+@EnableTransactionManagement
 public class DataSourceConfig {
 
     @Bean
@@ -53,6 +55,7 @@ public class DataSourceConfig {
     }
 
     @Bean
+    // 빈 메서드가 실행 될 때, 빈 구성 정보에 이 데이터 소스 타입의 빈이 하나만 있다면 그 하나의 데이터 소스를 가져와서 사용하겠다는 뜻
     @ConditionalOnSingleCandidate(DataSource.class)
     @ConditionalOnMissingBean
     JdbcTemplate jdbcTemplate(DataSource dataSource) {
