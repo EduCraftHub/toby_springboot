@@ -2,6 +2,7 @@ package tobyspring.helloboot;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

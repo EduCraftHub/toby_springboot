@@ -3,15 +3,14 @@ package tobyspring.helloboot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@HellobootTest
 // 롤백 안 하게 강제로 설정
 //@Rollback(false)
+@JdbcTest
 public class JdbcTemplateTest {
     @Autowired
     JdbcTemplate jdbcTemplate;
